@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vocabulary Learning</title>
+    <style>
+        body {
+            background-image: url('images/background.jpg');
+            background-size: cover;
+            background-position: center;
+            font-family: 'Arial', sans-serif;
+            color: white;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+        }
+
+        .container {
+            text-align: center;
+            background-color: rgba(0, 0, 0, 0.5);
+            padding: 20px;
+            border-radius: 10px;
+            display: inline-block;
+            margin-top: 100px;
+        }
+
+        button {
+            background-color: #4CAF50;
+            border: none;
+            color: white;
+            padding: 15px 32px;
+            text-align: center;
+            font-size: 16px;
+            margin: 10px;
+            cursor: pointer;
+            border-radius: 8px;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+
+        button:hover {
+            background-color: #45a049;
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Vocabulary Learning</h1>
+        <p id="word">Press the button to learn a new word!</p>
+        <button onclick="showWord()">Learn a New Word</button>
+        <p id="score">Score: 0</p>
+        <button onclick="window.location.href='index.html'">Back to Menu</button>
+    </div>
+
+    <script>
+        let score = 0;
+        const words = [
+            { word: "apple", meaning: "A fruit that is sweet and crisp.", usage: "I ate an apple for breakfast." },
+            { word: "book", meaning: "A set of written, printed, or blank pages bound together.", usage: "She read a book." },
+            { word: "car", meaning: "A road vehicle, typically with four wheels.", usage: "I drove my car to work." },
+            // 500 kelimeye kadar buraya ekleyebilirsin
+        ];
+
+        function showWord() {
+            const randomIndex = Math.floor(Math.random() * words.length);
+            const wordData = words[randomIndex];
+            document.getElementById('word').innerHTML = `<strong>Word:</strong> ${wordData.word} <br> <strong>Meaning:</strong> ${wordData.meaning} <br> <strong>Usage:</strong> ${wordData.usage}`;
+            score += 5; // Her doğru cevaptan sonra 5 puan eklenir
+            document.getElementById('score').textContent = "Score: " + score;
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sentence Construction</title>
+    <style>
+        body {
+            background-image: url('images/background.jpg');
+            background-size: cover;
+            background-position: center;
+            font-family: 'Arial', sans-serif';
+            color: white;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+        }
+
+        .container {
+            text-align: center;
+            background-color: rgba(0, 0, 0, 0.5);
+            padding: 20px;
+            border-radius: 10px;
+            display: inline-block;
+            margin-top: 100px;
+        }
+
+        button {
+            background-color: #4CAF50;
+            border: none;
+            color: white;
+            padding: 15px 32px;
+            text-align: center;
+            font-size: 16px;
+            margin: 10px;
+            cursor: pointer;
+            border-radius: 8px;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+
+        button:hover {
+            background-color: #45a049;
+            transform: scale(1.05);
+        }
+
+        .word {
+            display: inline-block;
+            padding: 10px;
+            background-color: #fff;
+            color: black;
+            margin: 5px;
+            border-radius: 8px;
+            cursor: grab;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Sentence Construction</h1>
+        <p>Arrange the words to form a correct sentence!</p>
+        <div id="words-container"></div>
+        <button onclick="checkSentence()">Check Sentence</button>
+        <button onclick="shuffleWords()">Shuffle Words</button>
+        <button onclick="window.location.href='index.html'">Back to Menu</button>
+        <p id="result"></p>
+    </div>
+
+    <script>
+        const sentences = [
+            { original: ["The", "cat", "is", "sleeping", "on", "the", "couch"], correct: "The cat is sleeping on the couch" },
+            { original: ["I", "like", "to", "play", "football"], correct: "I like to play football" },
+            // 500 cümle buraya eklenebilir
+        ];
+
+        let currentSentenceIndex = 0;
+        let shuffledWords = [...sentences[currentSentenceIndex].original];
+
+        function shuffleWords() {
+            shuffledWords.sort(() => Math.random() - 0.5);
+            displayWords();
+        }
+
+        function displayWords() {
+            const wordsContainer = document.getElementById('words-container');
+            wordsContainer.innerHTML = '';
+            shuffledWords.forEach((word, index) => {
+                const wordDiv = document.createElement('div');
+                wordDiv.textContent = word;
+                wordDiv.setAttribute('draggable', true);
+                wordDiv.setAttribute('data-index', index);
+                wordDiv.classList.add('word');
+                
+                wordDiv.addEventListener('dragstart', dragStart);
+                wordDiv.addEventListener('dragover', dragOver);
+                wordDiv.addEventListener('drop', drop);
+
+                wordsContainer.appendChild(wordDiv);
+            });
+        }
+
+        function dragStart(e) {
+            e.dataTransfer.setData('text/plain', e.target.getAttribute('data-index'));
+        }
+
+        function dragOver(e) {
+            e.preventDefault();
+        }
+
+        function drop(e) {
+            e.preventDefault();
+            const draggedIndex = e.dataTransfer.getData('text');
+            const targetIndex = e.target.getAttribute('data-index');
+
+            // Kelimeleri yer değiştir
+            const temp = shuffledWords[draggedIndex];
+            shuffledWords[draggedIndex] = shuffledWords[targetIndex];
+            shuffledWords[targetIndex] = temp;
+
+            displayWords();
+        }
+
+        function checkSentence() {
+            const userSentence = shuffledWords.join(' ').trim();
+            const result = document.getElementById('result');
+            if (userSentence === sentences[currentSentenceIndex].correct) {
+                result.textContent = "Correct! Well done!";
+                result.style.color = 'green';
+                setTimeout(nextSentence, 1000); // 1 saniye sonra sonraki cümleye geç
+            } else {
+                result.textContent = "Incorrect. Try again!";
+                result.style.color = 'red';
+            }
+        }
+
+        function nextSentence() {
+            currentSentenceIndex++;
+            if (currentSentenceIndex < sentences.length) {
+                shuffledWords = [...sentences[currentSentenceIndex].original];
+                displayWords();
+                document.getElementById('result').textContent = ""; // Sonuç mesajını temizle
+            } else {
+                document.getElementById('sentence').textContent = "Congratulations! You've completed all the sentences!";
+                document.getElementById('options').style.display = 'none';
+                document.getElementById('result').textContent = "";
+            }
+        }
+
+        // İlk cümleyi göster
+        displayWords();
+    </script>
+</body>
+</html>

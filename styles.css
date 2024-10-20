@@ -1,0 +1,66 @@
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f0f8ff;
+    color: #333;
+}
+
+.container {
+    text-align: center;
+    padding: 20px;
+}
+
+button {
+    background-color: #4CAF50;
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 8px;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+button:hover {
+    background-color: #45a049;
+    transform: scale(1.05);
+}
+
+#result {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+#score {
+    font-size: 20px;
+    color: #FF4500;
+    margin-top: 10px;
+}
+/* Doğru cevap animasyonu */
+@keyframes correctAnswer {
+    0% { opacity: 0; transform: scale(0.5); }
+    100% { opacity: 1; transform: scale(1.5); }
+}
+
+/* Yanlış cevap animasyonu */
+@keyframes incorrectAnswer {
+    0% { opacity: 0; transform: scale(0.5); }
+    100% { opacity: 1; transform: scale(1.5); }
+}
+
+/* Doğru cevap için stil */
+.correct-feedback {
+    color: green;
+    font-size: 24px;
+    animation: correctAnswer 0.5s ease-in-out;
+}
+
+/* Yanlış cevap için stil */
+.incorrect-feedback {
+    color: red;
+    font-size: 24px;
+    animation: incorrectAnswer 0.5s ease-in-out;
+}

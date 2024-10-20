@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>English Learning Game</title>
+    <style>
+        /* Body'nin arka planına resmi ekliyoruz */
+        body {
+            background-image: url('images/background.jpg'); /* Arka plan resmi burada */
+            background-size: cover;
+            background-position: center;
+            font-family: 'Arial', sans-serif;
+            color: white;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+        }
+
+        /* Konteyner */
+        .container {
+            text-align: center;
+            background-color: rgba(0, 0, 0, 0.5);
+            padding: 20px;
+            border-radius: 10px;
+            display: inline-block;
+            margin-top: 100px;
+        }
+
+        /* Butonlar */
+        button {
+            background-color: #4CAF50;
+            border: none;
+            color: white;
+            padding: 15px 32px;
+            text-align: center;
+            font-size: 16px;
+            margin: 10px;
+            cursor: pointer;
+            border-radius: 8px;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+
+        /* Hover efekti */
+        button:hover {
+            background-color: #45a049;
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Welcome to English Learning Game</h1>
+        <h2>Select Activity</h2>
+        <button onclick="window.location.href='vocabulary.html'">Vocabulary Learning</button>
+        <button onclick="window.location.href='listening.html'">Listening & Comprehension</button>
+        <button onclick="window.location.href='sentence.html'">Sentence Construction</button>
+        <button onclick="window.location.href='grammar.html'">Grammar Practice</button>
+    </div>
+</body>
+</html>

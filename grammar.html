@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grammar Practice</title>
+    <style>
+        body {
+            background-image: url('images/background.jpg');
+            background-size: cover;
+            background-position: center;
+            font-family: 'Arial', sans-serif';
+            color: white;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+        }
+
+        .container {
+            text-align: center;
+            background-color: rgba(0, 0, 0, 0.5);
+            padding: 20px;
+            border-radius: 10px;
+            display: inline-block;
+            margin-top: 100px;
+        }
+
+        button {
+            background-color: #4CAF50;
+            border: none;
+            color: white;
+            padding: 15px 32px;
+            text-align: center;
+            font-size: 16px;
+            margin: 10px;
+            cursor: pointer;
+            border-radius: 8px;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+
+        button:hover {
+            background-color: #45a049;
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Grammar Practice</h1>
+        <h2>Select a Grammar Topic</h2>
+        <button onclick="startTopic('present_simple')">Present Simple</button>
+        <button onclick="startTopic('past_simple')">Past Simple</button>
+        <button onclick="startTopic('conditionals')">Conditionals</button>
+        <button onclick="startTopic('modals')">Modal Verbs</button>
+        
+        <div id="questions-section" style="display: none;">
+            <p id="question">Fill in the blank with the correct word:</p>
+            <p id="sentence">Loading question...</p>
+            <div id="options">
+                <button onclick="checkAnswer('a')">Option A</button>
+                <button onclick="checkAnswer('b')">Option B</button>
+                <button onclick="checkAnswer('c')">Option C</button>
+            </div>
+            <p id="result"></p>
+            <p id="score">Score: 0</p>
+        </div>
+
+        <button onclick="window.location.href='index.html'">Back to Menu</button>
+    </div>
+
+    <script>
+        let score = 0;
+        let currentQuestion = 0;
+        let questions = [];
+
+        const topics = {
+            present_simple: [
+                { sentence: "He ____ (to run) every morning.", options: { a: "runs", b: "run", c: "running" }, correct: "a" },
+                { sentence: "They ____ (to work) in an office.", options: { a: "works", b: "work", c: "working" }, correct: "b" }
+            ],
+            past_simple: [
+                { sentence: "She ____ (to go) to the store yesterday.", options: { a: "went", b: "goes", c: "going" }, correct: "a" },
+                { sentence: "We ____ (to visit) them last weekend.", options: { a: "visited", b: "visits", c: "visiting" }, correct: "a" }
+            ],
+            conditionals: [
+                { sentence: "If it ____ (to rain), we will stay inside.", options: { a: "rains", b: "rain", c: "rained" }, correct: "a" },
+                { sentence: "If you ____ (to study), you would pass the exam.", options: { a: "study", b: "studied", c: "studies" }, correct: "b" }
+            ],
+            modals: [
+                { sentence: "She ____ (can/must) play the piano very well.", options: { a: "can", b: "must", c: "should" }, correct: "a" },
+                { sentence: "You ____ (should/must) finish your homework.", options: { a: "should", b: "must", c: "could" }, correct: "b" }
+            ]
+        };
+
+        function startTopic(topic) {
+            questions = topics[topic];
+            currentQuestion = 0;
+            score = 0;
+            document.getElementById('questions-section').style.display = 'block';
+            loadQuestion();
+        }
+
+        function loadQuestion() {
+            const question = questions[currentQuestion];
+            document.getElementById("sentence").textContent = question.sentence;
+            document.querySelectorAll("#options button")[0].textContent = question.options.a;
+            document.querySelectorAll("#options button")[1].textContent = question.options.b;
+            document.querySelectorAll("#options button")[2].textContent = question.options.c;
+        }
+
+        function checkAnswer(option) {
+            const question = questions[currentQuestion];
+            const result = document.getElementById('result');
+            if (option === question.correct) {
+                result.textContent = "Correct!";
+                result.style.color = 'green';
+                score += 10;
+                document.getElementById("score").textContent = "Score: " + score;
+                setTimeout(nextQuestion, 1000);
+            } else {
+                result.textContent = "Incorrect. Try again.";
+                result.style.color = 'red';
+            }
+        }
+
+        function nextQuestion() {
+            currentQuestion++;
+            if (currentQuestion < questions.length) {
+                loadQuestion();
+                document.getElementById('result').textContent = "";
+            } else {
+                document.getElementById('sentence').textContent = "Congratulations! You've completed all the questions!";
+                document.getElementById('options').style.display = 'none';
+                document.getElementById('result').textContent = "Your final score is: " + score;
+            }
+        }
+    </script>
+</body>
+</html>

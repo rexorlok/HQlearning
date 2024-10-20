@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Listening & Comprehension</title>
+    <style>
+        body {
+            background-image: url('images/background.jpg');
+            background-size: cover;
+            background-position: center;
+            font-family: 'Arial', sans-serif;
+            color: white;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+        }
+
+        .container {
+            text-align: center;
+            background-color: rgba(0, 0, 0, 0.5);
+            padding: 20px;
+            border-radius: 10px;
+            display: inline-block;
+            margin-top: 100px;
+        }
+
+        button {
+            background-color: #4CAF50;
+            border: none;
+            color: white;
+            padding: 15px 32px;
+            text-align: center;
+            font-size: 16px;
+            margin: 10px;
+            cursor: pointer;
+            border-radius: 8px;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+
+        button:hover {
+            background-color: #45a049;
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Listening & Comprehension</h1>
+        <p>Listen to the sentence and choose the correct answer:</p>
+        <audio id="audio" controls>
+            <source src="sentence1.mp3" type="audio/mpeg">
+            Your browser does not support the audio element.
+        </audio>
+        <div id="options">
+            <button onclick="checkAnswer('a')">The cat is on the couch.</button>
+            <button onclick="checkAnswer('b')">The dog is in the garden.</button>
+            <button onclick="checkAnswer('c')">The book is on the table.</button>
+        </div>
+        <p id="result"></p>
+        <p id="score">Score: 0</p>
+        <button onclick="window.location.href='index.html'">Back to Menu</button>
+    </div>
+
+    <script>
+        let score = 0;
+        const listeningTasks = [
+            { audio: "sentence1.mp3", correct: "a", options: ["The cat is on the couch.", "The dog is in the garden.", "The book is on the table."] },
+            // Buraya 500 farklı dinleme görevi ekleyebilirsin
+        ];
+
+        let currentTaskIndex = 0;
+
+        function checkAnswer(option) {
+            const result = document.getElementById('result');
+            if (option === listeningTasks[currentTaskIndex].correct) {
+                result.textContent = "Correct!";
+                result.style.color = 'green';
+                score += 10;
+                document.getElementById('score').textContent = "Score: " + score;
+                setTimeout(nextTask, 1000);
+            } else {
+                result.textContent = "Incorrect. Try again!";
+                result.style.color = 'red';
+            }
+       
